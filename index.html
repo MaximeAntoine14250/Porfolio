@@ -83,6 +83,14 @@
             font-size: 18px;
             color: #666;
             transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .profile-pic:hover {
@@ -446,7 +454,7 @@
             <div class="header">
                 <div class="profile-section">
                     <div class="profile-pic">
-                        Votre Photo
+                        <img src="data.jfif" alt="Photo de profil de Maxime ANTOINE">
                     </div>
                     <h1>Maxime ANTOINE</h1>
                     <p>Étudiant en BUT Réseaux et Télécommunications</p>
@@ -466,15 +474,15 @@
         <div id="description" class="portfolio-card fade-in">
             <div class="section">
                 <h2>Description Personnelle</h2>
-                <p>Je suis [Votre Prénom NOM], étudiant passionné en BUT Réseaux et Télécommunications. Mon parcours m'a mené vers cette formation après [votre parcours scolaire antérieur].</p>
+                <p>Je suis Maxime ANTOINE, étudiant passionné en BUT Réseaux et Télécommunications. Mon parcours m'a mené vers cette formation après un bac générale avec les spécialités science de l'ingénieure, science numérique de l'informatique et l'option mathématique.</p>
                 
                 <p>Ce qui me motive dans ce domaine est [vos motivations]. J'ai choisi cette spécialisation car [raisons du choix].</p>
                 
                 <p><strong>Parcours scolaire :</strong></p>
                 <ul>
-                    <li>[Année] - [Diplôme/Formation]</li>
-                    <li>[Année] - [Diplôme/Formation]</li>
-                    <li>2024 - BUT Réseaux et Télécommunications (en cours)</li>
+                    <li> 2022 - Brevet des collèges</li>
+                    <li> 2025 - Baccalauréat général </li>
+                    <li> 2025 - BUT Réseaux et Télécommunications (en cours)</li>
                 </ul>
                 
                 <p><strong>Expériences pertinentes :</strong> [Vos expériences, stages, projets personnels...]</p>
@@ -512,26 +520,20 @@
                 <div class="competences-grid">
                     <div class="competence-card">
                         <h3>🌐 Administrer les réseaux et l'internet</h3>
-                        <p><strong>Niveau actuel :</strong> [Votre niveau]</p>
+                        <p><strong>Niveau actuel :</strong> Bon</p>
                         <p>Cette compétence englobe la gestion des infrastructures réseau, la configuration des équipements et le maintien de la connectivité.</p>
                     </div>
                     
                     <div class="competence-card">
                         <h3>🔗 Connecter les entreprises et les usagers</h3>
-                        <p><strong>Niveau actuel :</strong> [Votre niveau]</p>
+                        <p><strong>Niveau actuel :</strong> Bon</p>
                         <p>Mise en place de solutions de connectivité adaptées aux besoins des organisations et des utilisateurs finaux.</p>
                     </div>
                     
                     <div class="competence-card">
                         <h3>💻 Créer des outils et applications informatiques pour les RT</h3>
-                        <p><strong>Niveau actuel :</strong> [Votre niveau]</p>
+                        <p><strong>Niveau actuel :</strong> Moyen</p>
                         <p>Développement d'applications spécialisées dans le domaine des réseaux et télécommunications.</p>
-                    </div>
-                    
-                    <div class="competence-card">
-                        <h3>🔒 Administrer un système d'information sécurisé</h3>
-                        <p><strong>Niveau actuel :</strong> [Votre niveau]</p>
-                        <p>Gestion de la sécurité des systèmes d'information et mise en place de politiques de sécurité.</p>
                     </div>
                 </div>
             </div>
@@ -756,103 +758,3 @@
             const modalTitle = document.getElementById('modalTitle');
             const modalDescription = document.getElementById('modalDescription');
             const modalType = document.getElementById('modalType');
-            
-            modalTitle.textContent = title;
-            modalDescription.textContent = description;
-            modalType.textContent = type;
-            
-            if (imageSrc) {
-                modalImage.src = imageSrc;
-                modalImage.style.display = 'block';
-            } else {
-                modalImage.style.display = 'none';
-            }
-            
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Fermer la modal en cliquant à l'extérieur
-        window.onclick = function(event) {
-            const modal = document.getElementById('imageModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-
-        // Gestion de l'upload d'images
-        const fileInputs = document.querySelectorAll('input[type="file"]');
-        fileInputs.forEach((input, index) => {
-            input.addEventListener('change', function(e) {
-                const files = Array.from(e.target.files);
-                const preuveGrid = document.getElementById(`preuves${index + 1}`);
-                
-                files.forEach(file => {
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            addImageToGrid(preuveGrid, file.name, e.target.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            });
-        });
-
-        // Drag & Drop functionality
-        document.querySelectorAll('.upload-zone').forEach(zone => {
-            zone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                zone.classList.add('dragover');
-            });
-
-            zone.addEventListener('dragleave', () => {
-                zone.classList.remove('dragover');
-            });
-
-            zone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                zone.classList.remove('dragover');
-                
-                const files = Array.from(e.dataTransfer.files);
-                const preuveGrid = zone.parentElement.querySelector('.preuves-grid');
-                
-                files.forEach(file => {
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            addImageToGrid(preuveGrid, file.name, e.target.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            });
-        });
-
-        function addImageToGrid(grid, fileName, imageSrc) {
-            const preuveItem = document.createElement('div');
-            preuveItem.className = 'preuve-item';
-            preuveItem.onclick = () => openModal(fileName, 'Image ajoutée par l\'utilisateur', 'Upload', imageSrc);
-            
-            preuveItem.innerHTML = `
-                <div class="preuve-image">
-                    <img src="${imageSrc}" alt="${fileName}">
-                </div>
-                <div class="preuve-content">
-                    <div class="preuve-title">${fileName}</div>
-                    <div class="preuve-description">Image ajoutée</div>
-                    <span class="preuve-type">Upload</span>
-                </div>
-            `;
-            
-            grid.appendChild(preuveItem);
-        }
-    </script>
-</body>
-</html>
